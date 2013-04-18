@@ -1,6 +1,6 @@
 <?php
 
-class Controller {
+abstract class Controller {
 	public $request;
 	public $matches;
 	public $framework;

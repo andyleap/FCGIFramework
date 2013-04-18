@@ -10,7 +10,6 @@ class ControllerCache implements CoreInit, ArrayAccess
 		$this->framework = $framework;
 		$controllerDir = $this->framework->Options['MainDir'] . DS . $this->framework->Options['ControllerDir'];
 		$dirs = array($controllerDir);
-		$templates = array();
 		while(($dir = array_shift($dirs)) !== NULL)
 		{
 			if(($dirHandle = @opendir($dir)) !== false)

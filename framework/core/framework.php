@@ -10,7 +10,9 @@ class Framework
 		$this->Options = array(
 			'MainDir' => '.' . DS . 'app',
 			'TemplateDir' => 'templates',
-			'ControllerDir' => 'controllers'
+			'ControllerDir' => 'controllers',
+			'ModelDir' => 'models',
+			'DBConnections' => array()
 		);
 		if(is_array($options))
 		{
