@@ -20,12 +20,15 @@ This is a simple one.  We use the [PHPActiveRecord](http://www.phpactiverecord.o
 ##Templates
 
 Another simple one.  We do pure php templates, using echo short tags <?= ?>, and a simple variable assignment:
+
 ``` PHP
 $this->blogTemplate->title = $blog->title;
 $this->blogTemplate->content = $blog->content;
 $this->blogTemplate->Render();
 ```
+
 Renders using a template like
+
 ``` HTML
 <!DOCTYPE html>
 <html>
@@ -44,6 +47,6 @@ Renders using a template like
 
 What does all this boil down to?  Here's some numbers, based off of a 10-year old computer running linux, lighttpd, and FCGIFramework
 
-* Requests/s : 531.2 conn/s
+* Requests/s : 531.2
 * Total time per connection[ms] : min 0.6 avg 1.9 max 55.6 median 1.5 stddev 1.1
 * Average memory usage : 8mb per php instance
