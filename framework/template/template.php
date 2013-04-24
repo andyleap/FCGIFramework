@@ -4,10 +4,12 @@ class Template
 {
 	private $vars = array();
 	private $template = null;
+	private $framework;
 
-	function __construct($template)
+	function __construct($template, $framework)
 	{
 		$this->template = $template;
+		$this->framework = $framework;
 	}
 
 	public function __get($name)
@@ -29,6 +31,14 @@ class Template
 	{
 		unset($this->vars[$name]);
 	}
+	
+	public function Extract($vars)
+	{
+		foreach($vars as $key => $value)
+		{
+			$this->vars[$key] = $value;
+		}
+	}
 
 	public function Clean()
 	{
@@ -41,16 +51,10 @@ class Template
 		{
 			ob_start();
 		}
-		$this->template->__invoke($this->vars);
+		$this->template->__invoke($this->vars, $this->framework);
 		if(!$output_view_file)
 		{
 			return ob_get_clean();
 		}
 	}
-
-	public function Parse()
-	{
-		return $this->Render(false);
-	}
-
 }

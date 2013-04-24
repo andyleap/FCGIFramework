@@ -10,6 +10,7 @@ class Framework
 		$this->Options = array(
 			'MainDir' => '.' . DS . 'app',
 			'TemplateDir' => 'templates',
+			'CompiledTemplateDir' => 'compiledtemplates',
 			'ControllerDir' => 'controllers',
 			'ModelDir' => 'models',
 			'DBConnections' => array()

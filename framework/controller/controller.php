@@ -5,12 +5,14 @@ abstract class Controller {
 	public $matches;
 	public $framework;
 	public $templates;
+	public $cache;
 	public $methodargs;
 	
 	function __construct($framework)
 	{
 		$this->framework = $framework;
 		$this->templates = $framework->TemplateCache;
+		$this->cache = $framework->Cache;
 		if(method_exists($this, 'Init'))
 		{
 			$this->Init();

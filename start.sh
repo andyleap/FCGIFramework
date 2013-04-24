@@ -1,3 +1,3 @@
 #!/bin/bash
 
-spawn-fcgi -n -s /tmp/phpfcgi.sock -M 0666 -- /usr/bin/php index.php
+spawn-fcgi -F 5 -s /tmp/phpfcgi.sock -M 0666 -- /usr/bin/php index.php
