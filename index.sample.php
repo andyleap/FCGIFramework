@@ -1,5 +1,5 @@
 <?php
-
+/*
 include 'Framework.php';
 
 $framework = new Framework(array('DBConnections' => array('development' => 'mysql://root:root@localhost/test')));
@@ -9,3 +9,5 @@ $server = new FCGI_Server();
 while ($req = $server->Accept()) {
 	$framework->Router->Route($req);
 }
+ *
+ */
