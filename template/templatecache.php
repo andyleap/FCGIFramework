@@ -116,6 +116,20 @@ class TemplateCache implements ArrayAccess, CoreInit
 						break;
 					case '/foreach':
 						$output .= '<?php } ?>';
+					case 'assign':
+						$args = self::ArgParser($commandMatches[2]);
+						if(isset($args['name']) && isset($args['value']))
+						{
+							if(is_numeric($args['value']))
+							{
+								$output .= '<?php $' . $args['name'] . '=' . $args['value'] . '; ?>';
+							}
+							else
+							{
+								$output .= '<?php $' . $args['name'] . '=\'' . $args['value'] . '\'; ?>';
+							}
+						}
+						break;
 					default:
 						if(substr($commandMatches[0], 0, 1) === '=')
 						{
