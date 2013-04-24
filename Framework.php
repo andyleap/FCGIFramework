@@ -1,10 +1,10 @@
 <?php
 
 define('DS', DIRECTORY_SEPARATOR);
-$dirs = array('.' . DS . 'framework');
+$dirs = array(__DIR__);
 $high_pri = array();
-$high_pri[] = '.' . DS . 'framework' . DS . 'model' . DS . 'phpAR' . DS . 'Singleton.php';
-$high_pri[] = '.' . DS . 'framework' . DS . 'model' . DS . 'phpAR';
+$high_pri[] = __DIR__ . DS . 'model' . DS . 'phpAR' . DS . 'Singleton.php';
+$high_pri[] = __DIR__ . DS . 'model' . DS . 'phpAR';
 $dirs = array_merge($high_pri, $dirs);
 $scanned = array();
 while (($dir = array_shift($dirs)) !== NULL)
