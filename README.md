@@ -51,6 +51,7 @@ Renders using a template like
 * {include file=menu/menu} => Includes a straight sub template, using same variables as the main template
 * {include file=blogEntry values=blog} => Includes a sub template, with specified variable for the template to use.
 	This is the same as doing a $blogEntry->extract($blog); $blogEntry->Render();
+* {literal} {/literal} => Ignores a block of {'s and }'s, use for wrapping JS code and CSS styles
 
 ###Performance
 
