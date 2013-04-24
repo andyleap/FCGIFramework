@@ -19,7 +19,7 @@ This is a simple one.  We use the [PHPActiveRecord](http://www.phpactiverecord.o
 
 ##Templates
 
-Another simple one.  We do pure php templates, using echo short tags <?= ?>, and a simple variable assignment:
+Templates just got a little more complex.  Same simple syntax for the controller side,
 
 ``` PHP
 $this->blogTemplate->title = $blog->title;
@@ -37,11 +37,20 @@ Renders using a template like
         <title></title>
     </head>
     <body>
-  	<h1><?=$title?></h1>
-		<?=$content?>
+  	<h1>{=title}</h1>
+		{=content}
     </body>
 </html>
 ```
+
+####Template Tags
+
+* {=variable} => echos $variable;
+* {foreach item=blog from=blogs} => basic foreach $blogs as $blog
+* {if} {else} {/if} => basic if structure
+* {include file=menu/menu} => Includes a straight sub template, using same variables as the main template
+* {include file=blogEntry values=blog} => Includes a sub template, with specified variable for the template to use.
+	This is the same as doing a $blogEntry->extract($blog); $blogEntry->Render();
 
 ###Performance
 
