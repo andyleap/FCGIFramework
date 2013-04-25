@@ -3,16 +3,25 @@
 class Framework
 {
 	private $core = array();
+	private $plugin = array();
+	private static $instance;
 	public $Options;
+	
+	public static function GetInstance()
+	{
+		return self::$instance;
+	}
 
 	public function __construct($options = array())
 	{
+		$this->instance = $this;
 		$this->Options = array(
 			'MainDir' => '.' . DS . 'app',
 			'TemplateDir' => 'templates',
 			'CompiledTemplateDir' => 'compiledtemplates',
 			'ControllerDir' => 'controllers',
 			'ModelDir' => 'models',
+			'PluginDir' => 'plugins',
 			'DBConnections' => array()
 		);
 		if(is_array($options))
@@ -30,20 +39,49 @@ class Framework
 		{
 			$core->Init();
 		}
-	}
-
-	public function &__get($core)
-	{
-		if(isset($this->core[$core]))
-		{
-			return $this->core[$core];
+		if(($plugindir = @opendir($this->Options['MainDir'] . DS . $this->Options['PluginDir'])) !== false) {
+			while (($plugin = readdir($plugindir)) !== false) 
+			{
+				if($plugin == '.' || $plugin == '..')
+				{
+					continue;
+				}
+				if(is_dir($this->Options['MainDir'] . DS . $this->Options['PluginDir'] . DS . $plugin) && file_exists($this->Options['MainDir'] . DS . $this->Options['PluginDir'] . DS . $plugin . DS . 'init.php'))
+				{
+					include_once $this->Options['MainDir'] . DS . $this->Options['PluginDir'] . DS . $plugin . DS . 'init.php';
+				}
+			}
+			closedir($plugindir);
 		}
-		throw new Exception('Core component ' . $core . ' doesn\'t exist');
+		foreach(get_declared_classes() as $class)
+		{
+			if(in_array("PluginInit", class_implements($class)))
+			{
+				$this->plugin[$class] = new $class($this);
+			}
+		}
+		foreach($this->plugin as $plugin)
+		{
+			$plugin->Init();
+		}
 	}
 
-	public function __isset($core)
+	public function &__get($module)
 	{
-		return isset($this->core[$core]);
+		if(isset($this->core[$module]))
+		{
+			return $this->core[$module];
+		}
+		if(isset($this->plugin[$module]))
+		{
+			return $this->plugin[$module];
+		}
+		throw new Exception('Component ' . $module . ' doesn\'t exist');
+	}
+
+	public function __isset($module)
+	{
+		return isset($this->core[$module]) || isset($this->plugin[$module]);
 	}
 
 }
