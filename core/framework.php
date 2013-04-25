@@ -14,7 +14,7 @@ class Framework
 
 	public function __construct($options = array())
 	{
-		$this->instance = $this;
+		self::$instance = $this;
 		$this->Options = array(
 			'MainDir' => '.' . DS . 'app',
 			'TemplateDir' => 'templates',
