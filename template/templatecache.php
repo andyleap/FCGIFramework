@@ -43,7 +43,8 @@ class TemplateCache implements ArrayAccess, CoreInit
 		}
 		foreach($templates as $template)
 		{
-			$this->templates[$template] = function($vars, $framework) use ($template, $templateDir)
+			$safename = str_replace(DS, '/', $template);
+			$this->templates[$safename] = function($vars, $framework) use ($template, $templateDir)
 					{
 						extract($vars);
 						include $templateDir . DS . $template . '.php';
@@ -52,8 +53,9 @@ class TemplateCache implements ArrayAccess, CoreInit
 		
 		foreach($compiletemplates as $template)
 		{
+			$safename = str_replace(DS, '/', $template);
 			$this->CompileTemplate($templateDir, $template);
-			$this->templates[$template] = (include $this->framework->Options['MainDir'] . DS . $this->framework->Options['CompiledTemplateDir'] . DS . $template . '.templ.php');
+			$this->templates[$safename] = (include $this->framework->Options['MainDir'] . DS . $this->framework->Options['CompiledTemplateDir'] . DS . $template . '.templ.php');
 		}
 	}
 	
