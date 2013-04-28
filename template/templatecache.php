@@ -53,8 +53,11 @@ class TemplateCache implements ArrayAccess, CoreInit
 		
 		foreach($compiletemplates as $template)
 		{
+			if(filemtime($this->framework->Options['MainDir'] . DS . $this->framework->Options['CompiledTemplateDir'] . DS . $template . '.templ.php')<filemtime($templateDir . DS . $template . '.templ'))
+			{
+				$this->CompileTemplate($templateDir, $template);
+			}
 			$safename = str_replace(DS, '/', $template);
-			$this->CompileTemplate($templateDir, $template);
 			$this->templates[$safename] = (include $this->framework->Options['MainDir'] . DS . $this->framework->Options['CompiledTemplateDir'] . DS . $template . '.templ.php');
 		}
 	}
